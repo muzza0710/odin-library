@@ -1,5 +1,6 @@
 :root {
     box-sizing: border-box;
+    --grey: rgb(244,244,244);
 }
 
 h1 {
@@ -15,7 +16,7 @@ header {
     margin-bottom: 1rem;
 }
 main {
-    background-color: #999999;
+    background-color: var(--grey);
     display: flex;
     flex-wrap: wrap;
     padding: 1rem;
@@ -32,4 +33,5 @@ main {
     gap: 1rem;
     border-radius: .5rem;
     margin: 1rem 0;
+    box-shadow: 4px 4px 6px rgb(220, 220, 220);
 }
