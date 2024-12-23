@@ -43,7 +43,10 @@ function Book(title, author, num_pages, have_read=false) {
     }
 };
 
-function addBookToLibrary(title, author, num_pages,have_read=false){
+function addBookToLibrary(title, author, num_pages, have_read=false){
+    if (!num_pages){
+        num_pages = "unknown";
+    }
     const book = new Book(title, author, num_pages, have_read);
     my_libray.push(book);
     return book;
@@ -74,12 +77,12 @@ showButton.addEventListener("click", () => {
 })
 
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
-confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault(); // We don't want to submit this fake form
-  favDialog.close();
-  const book = addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, haveReadBtn.checked);
-  createCardElement(book);
-  console.log(haveReadBtn.value);
+favDialog.addEventListener("submit", (event) => {
+    event.preventDefault(); // We don't want to submit this fake form
+    const book = addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, haveReadBtn.checked);
+    createCardElement(book);
+    favDialog.close();
+    console.log(book.num_pages)
 });
 
 my_libray.forEach((e) => {
