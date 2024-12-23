@@ -35,6 +35,7 @@ const authorInput = favDialog.querySelector("#author");
 const pagesInput = favDialog.querySelector("#pages");
 const haveReadBtn = favDialog.querySelector("#have-read");
 const confirmBtn = favDialog.querySelector("#confirmBtn");
+const cancelBtn = favDialog.querySelector("#cancelBtn");
 
 function Book(title, author, num_pages, id, have_read=false) {
     this.title = title;
@@ -69,11 +70,13 @@ function createCardElement(book) {
     const num_pages = document.createElement('p');
     num_pages.innerText = `Has ${book.num_pages} pages`;
     const have_read = document.createElement('p');
-    have_read.innerText = book.have_read ? 'You have read this book' : 'you have not read this book '
+    have_read.innerText = book.have_read ? 'You have read this book' : 'you have not read this book'
     const btnContainer = document.createElement("div");
-    btnContainer.classList.add("btn-container");
+    btnContainer.classList.add("button-container");
     const removeBookBtn = document.createElement("button");
     removeBookBtn.innerText = "Remove book";
+    const toggleHaveReadBtn = document.createElement("button");
+    toggleHaveReadBtn.innerText = "toggle read";
     
     main.appendChild(card);
     card.appendChild(title);
@@ -81,27 +84,33 @@ function createCardElement(book) {
     card.appendChild(num_pages);
     card.appendChild(have_read);
     btnContainer.appendChild(removeBookBtn);
+    btnContainer.appendChild(toggleHaveReadBtn);
     card.appendChild(btnContainer);
 
     removeBookBtn.addEventListener("click", (e) => {
         my_libray = my_libray.filter((obj) => obj.id != card.dataset.id);
         main.removeChild(card);
     });
+
+    toggleHaveReadBtn.addEventListener("click", (e) => {
+        my_libray.at(my_libray.indexOf(book)).have_read = !book.have_read;
+        have_read.innerText = have_read.innerText == 'You have read this book' ? 'you have not read this book' : 'You have read this book';
+    });
 };
 
 
-// "Show the dialog" button opens the <dialog> modally
 showButton.addEventListener("click", () => {
   favDialog.showModal();
 })
 
-// Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 favDialog.addEventListener("submit", (event) => {
-    event.preventDefault(); // We don't want to submit this fake form
+    event.preventDefault();
     const book = addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, haveReadBtn.checked);
     createCardElement(book);
     favDialog.close();
 });
+
+cancelBtn.addEventListener("click", (e) => favDialog.close());
 
 my_libray.forEach((e) => {
     createCardElement(e);
