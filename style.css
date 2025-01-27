@@ -86,3 +86,18 @@ main {
     max-height: min-content;
     box-shadow: 4px 4px 6px rgb(220, 220, 220);
 }
+
+.flex-container {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.input-div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: .5rem;
+}

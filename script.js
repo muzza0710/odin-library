@@ -21,12 +21,13 @@ let my_libray = [
     // { title: "Animal Farm", author: "George Orwell", num_pages: 112, have_read: false }
 ];
 
+// sort my_library by id and set id to last item +1 for use when creating new entries
 my_libray.sort((a,b) => a.id - b.id);
 let id = my_libray.at(-1).id + 1;
 
-
+// define html elements references
 const main = document.querySelector('main');
-const showButton = document.getElementById("showDialog");
+const addBookButton = document.getElementById("add-book");
 const favDialog = document.getElementById("favDialog");
 const outputBox = document.querySelector("output");
 const selectEl = favDialog.querySelector("select");
@@ -99,7 +100,7 @@ function createCardElement(book) {
 };
 
 
-showButton.addEventListener("click", () => {
+addBookButton.addEventListener("click", () => {
   favDialog.showModal();
 })
 
